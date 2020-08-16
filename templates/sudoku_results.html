@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="./static/assets/apple-icon-180x180.png">
+    <link href="./static/assets/favicon.ico" rel="icon">
+    <title>Sudoku</title>
+
+    <link href="./static/sudoku.css" rel="stylesheet"></head>
+<body>
+<div>
+    {% if response.message_type == 'success' %}
+    <table>
+        </tr>
+        {% for row in response.data %}
+        <tr>
+          {% for col in row %}
+          <td>  {{col}}
+            {% endfor %}
+          </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+    {% else %}
+    <div id="failure">
+        <p style="color:red">
+            Oops! Looks like there was an issue with your inputs or I couldn't find a solution for you. <br>
+            If you believe it is the latter, please send me your puzzle and I will have a look.<br> <br>
+            I'm still missing lots of controls and exception handling on this version (and some css and js, obviously &#128512;).
+        </p>
+    </div>
+    {% endif %}
+</form>
+<ul>
+    <li><a href={{url_for('sudoku')}}>Try another puzzle?</a></li>
+    <li><a href="{{url_for('my_home')}}">Back to main page?</a></li>
+</ul>
+</body>
+</html>

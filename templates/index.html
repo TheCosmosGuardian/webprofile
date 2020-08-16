@@ -22,7 +22,7 @@
 <body class="">
 
 <!-- Add your content of header -->
-<div class="background-color-layer" style="background-image: url('static/assets/images/img-01.JPG')"
+<div class="background-color-layer" style="background-image: url('static/assets/images/img-01.jpg')"
 ></div>
 <main class="content-wrapper">
   <header class="section-container">
@@ -56,7 +56,7 @@
             <h2>About me</h2>
             <div class="row">
               <div class="col-md-4">
-                <p><img src="./static/assets/images/img-01.JPG" class="img-responsive" alt=""></p>
+                <p><img src="./static/assets/images/img-01.jpg" class="img-responsive" alt=""></p>
               </div>
               <div class="col-md-8">
 
@@ -66,7 +66,9 @@
                 I have also consulted (under Khonology) on a CVA project at Standard Bank for 2 years.</p>
               <p>I hold an MTech qualification in Electrical Engineering, a BSc honors in Astrophysics and Space Science and a BSc in Maths and Physics.
                 I'm currently enrolled for Financial Risk Management, which I'm due to write the exam for on 24 Oct 2020 (wish me luck!).
-                I'm a passionate Python coder. Welcome to my page!</p>
+                I'm a passionate Python coder.</p>
+                <p>Welcome to my page! Please feel free to drop me a message below regarding the page or anything else. This is still a work in
+                progress and there's definitely a lot I can achieve with your input.</p>
 
               </div>
             </div>
@@ -75,12 +77,21 @@
 
         <div class="card">
           <div class="card-block">
-            <h2>Projects</h2>
+            <h2>Projects, Fun & Stuff</h2>
             <div class="row">
               <div class="col-md-4">
-                <!--<img src="./static/assets/images/img-02.jpg" class="img-responsive" alt="">-->
-                <h3 class="h5">Sudoku Solver</h3>
-                <p> Coming soon... </p>
+                <!--<img src="./static/assets/images/img-01.jpg" class="img-responsive" alt="">-->
+                <h3 class="h5">Sudoku Solver v1.0</h3>
+                <p> Are you struggling to resolve a Sudoku puzzle? You are not alone!
+                  Some puzzles can be tough. Well, if you are interested to know the solution to the puzzle that's giving you problems,
+                  why not fill out the grid with numbers as they appear in your puzzle and hit Solve. Interested? Please
+                  <a href={{url_for('sudoku')}}>click here.</a> </p>
+              </div>
+              <div class="col-md-4">
+                <!--<img src="./static/assets/images/img-01.jpg" class="img-responsive" alt="">-->
+                <h3 class="h5">Lotto QuickPick Machine v1.0</h3>
+                <p> Let me let you in on a secret of how I am going to become a millionaire, <a href={{url_for('lotto')}}>click here.</a> &#128512;
+                  </p>
               </div>
             </div>
           </div>

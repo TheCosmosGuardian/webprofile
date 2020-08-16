@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{context.my_title}}</title>
+</head>
+<body>
+    <header>
+    <h1>{{context.my_heading}}</h1>
+        <nav>
+            <ul>
+                <li><a href="{{url_for('my_home')}}">Main</a></li>
+            </ul>
+        </nav>
+    </header>
+<article>
+    {% block analysis_content %}
+    {% endblock %}
+</article>
+</body>
+</html>

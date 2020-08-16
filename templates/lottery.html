@@ -1,0 +1,40 @@
+{% extends "randomize.html" %}
+
+{% block analysis_content %}
+
+<form method="post">
+Request quick-pick lottery numbers?
+<button type="submit">Yes</button>
+</form>
+
+
+<div>
+    {% if response.message_type == 'lottery_response' %}
+        <div id="lottery_response">
+             <h2>Your Lucky Lotto Numbers for this Week</h2>
+             <table id='myTable'><tr>
+                 {% for header in response.columns %}
+                    <th> {{header}}
+                 {% endfor %}
+                 </th>
+                 </tr>
+                 {% for row in response.data %}
+                        <tr>
+                        {% for col in row %}
+                            <td>  {{col}}
+                        {% endfor %}
+                        </td>
+                        </tr>
+                 {% endfor %}
+                </table>
+        </div>
+    {% else %}
+    <div id="others"></div>
+    {% endif %}
+</div>
+<!-- JQuery script -->
+<script type="text/javascript" src="./static/jquery-3.4.1.min.js"></script>
+
+<!-- Plotly script for graphing -->
+<script type="text/javascript" src="./static/plotly-latest.min.js"></script>
+{% endblock%}
