@@ -1,7 +1,7 @@
 import csv
 import random
 
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect,url_for
 app = Flask(__name__)
 print(__name__)
 
@@ -20,7 +20,7 @@ def my_home():
         try:
             data = request.form.to_dict()
             wrt_to_csv(data)
-            return redirect('index.html')
+            return redirect(url_for('my_home'))
         except:
             return 'did not save to database'
     else:
