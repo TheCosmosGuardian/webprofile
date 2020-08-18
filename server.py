@@ -1,10 +1,21 @@
 import csv
 import random
 
+from flask_mail import Mail, Message
 from flask import Flask, render_template, request, redirect,url_for
 app = Flask(__name__)
 print(__name__)
 
+
+app = Flask(__name__)
+
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'wangaplayground@gmail.com'
+app.config['MAIL_PASSWORD'] = 'PlayBot01'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+mail = Mail(app)
 
 def wrt_to_csv(data):
     with open('database.csv', newline='', mode='a') as database2:
@@ -20,6 +31,9 @@ def my_home():
         try:
             data = request.form.to_dict()
             wrt_to_csv(data)
+            msg = Message(data['subject'], sender=data['email'], recipients=['wangaplayground@gmail.com'])
+            msg.body = data['email'] + ' - ' + data['message']
+            mail.send(msg)
             return redirect(url_for('my_home'))
         except:
             return 'did not save to database'
