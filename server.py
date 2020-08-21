@@ -61,15 +61,29 @@ def solver(grid):
                 return
 
 
+def validate_inputs(game):
+    for y in range(9):
+        for x in range(9):
+            if game[y][x] != 0:
+                var = game[y][x]
+                game[y][x] = 0
+                if possible(y,x,var,game):
+                    game[y][x] = var
+                else:
+                    return 'Invalid'
+    return 'Valid'
+
+
 @app.route('/sudoku', methods=['POST', 'GET'])
 def sudoku():
     if request.method == 'POST':
         sdk_dict = request.form.to_dict()
         sdk_list = [0 if sdk_dict[k] ==  '' else int(sdk_dict[k]) for k,v in sdk_dict.items()]
         grid = [sdk_list[i:i+9] for i in range(0, len(sdk_list), 9)]
+        checker = validate_inputs(grid)
         data = solver(grid)
         response = {}
-        if isinstance(data, list):
+        if isinstance(data, list) and checker == 'Valid':
             response['message_type'] = 'success'
             response['data'] = data
         else:
