@@ -78,7 +78,7 @@ def validate_inputs(game):
 def sudoku():
     if request.method == 'POST':
         sdk_dict = request.form.to_dict()
-        sdk_list = [0 if sdk_dict[k] ==  '' else int(sdk_dict[k]) for k,v in sdk_dict.items()]
+        sdk_list = [0 if sdk_dict[k] ==  '' else int(float(sdk_dict[k])) for k,v in sdk_dict.items()]
         grid = [sdk_list[i:i+9] for i in range(0, len(sdk_list), 9)]
         checker = validate_inputs(grid)
         data = solver(grid)
