@@ -1,5 +1,5 @@
-import csv
 import random
+import server_ops as sdk
 
 from flask import Flask, render_template, request, redirect,url_for
 app = Flask(__name__)
@@ -8,14 +8,7 @@ print(__name__)
 
 app = Flask(__name__)
 
-
-def wrt_to_csv(data):
-    with open('database.csv', newline='', mode='a') as database2:
-        email = data['email']
-        subject = data['subject']
-        message = data['message']
-        csv_writer = csv.writer(database2, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        csv_writer.writerow([email,subject,message])
+severOps = sdk.ServerOps()
 
 
 @app.route('/', methods=['POST', 'GET'])
@@ -23,55 +16,12 @@ def my_home():
     if request.method == 'POST':
         try:
             data = request.form.to_dict()
-            wrt_to_csv(data)
+            severOps.wrt_to_csv(data)
             return redirect(url_for('my_home'))
         except:
             return 'did not save to database'
     else:
         return render_template('index.html')
-
-def possible(y,x,n,grid):
-    for i in range(0,9):
-        if grid[y][i] == n:
-            return False
-    for i in range(0,9):
-        if grid[i][x] == n:
-            return False
-    x0 = (x//3)*3
-    #print(f'X0 = {x0}')
-    y0 = (y//3)*3
-    #print(f'Y0 = {y0}')
-    for i in range(0,3):
-        for j in range(0,3):
-            if grid[y0+i][x0+j] == n:
-                return False
-    return True
-
-def solver(grid):
-    for y in range(9):
-        for x in range(9):
-            if grid[y][x] == 0:
-                for n in range(1,10):
-                    if possible(y,x,n,grid):
-                        grid[y][x] = n
-                        solver(grid)
-                        if 0 not in grid[8]:
-                            return grid
-                        grid[y][x] = 0
-                return
-
-
-def validate_inputs(game):
-    for y in range(9):
-        for x in range(9):
-            if game[y][x] != 0:
-                var = game[y][x]
-                game[y][x] = 0
-                if possible(y,x,var,game):
-                    game[y][x] = var
-                else:
-                    return 'Invalid'
-    return 'Valid'
 
 
 @app.route('/sudoku', methods=['POST', 'GET'])
@@ -80,8 +30,8 @@ def sudoku():
         sdk_dict = request.form.to_dict()
         sdk_list = [0 if sdk_dict[k] ==  '' else int(float(sdk_dict[k])) for k,v in sdk_dict.items()]
         grid = [sdk_list[i:i+9] for i in range(0, len(sdk_list), 9)]
-        checker = validate_inputs(grid)
-        data = solver(grid)
+        checker = severOps.validate_inputs(grid)
+        data = severOps.solver(grid)
         response = {}
         if isinstance(data, list) and checker == 'Valid':
             response['message_type'] = 'success'
