@@ -49,19 +49,14 @@ def lotto():
               'my_heading': "Lotto QuickPick Machine",
               'my_paragraph': ""}
     if request.method == 'POST':
-        numbers = []
-        for i in range(8):
-            numbers.append([])
-            for j in range(6):
-                rand = random.randint(1, 50)
-                while rand in numbers[i]:
-                    rand = random.randint(1, 50)
-                numbers[i].append(rand)
-            numbers[i].sort()
+        numbers = random.sample(range(1,53),48)
+
+        matrix = [numbers[i*6: (i+1)*6] for i in range(8)]
+
         response = {}
         response['message_type'] = 'lottery_response'
         response['columns'] = ['A', 'B', 'C', 'D', 'E', 'F']
-        response['data'] = numbers
+        response['data'] = matrix
         return render_template('lottery.html', context=kwargs, response=response)
     return render_template('lottery.html', context = kwargs, response={'message_type': "others"})
 
